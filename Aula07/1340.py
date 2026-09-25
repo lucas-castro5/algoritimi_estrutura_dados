@@ -1,0 +1,63 @@
+from collections import deque
+import heapq 
+
+
+
+
+
+pilha = []
+fila = deque()
+prioridade = []
+
+epilha = True
+efila = True
+eprioridade = True
+
+for _ in range(N):
+    operacao, valor = map(int,input.split())
+
+    if operacao == 1:
+        pilha.append(valor)
+        fila.append(valor)
+        heapq.heappush(prioridade, -valor)
+    else:
+        if not pilha:
+            epilha = False
+        else:
+            removido = pilha.pop()
+
+            if removido != valor:
+                epilha = False
+
+        if not fila:
+            efila = False
+        else:
+            removido = pilha.popleft()
+
+            if removido != valor:
+                efila = False
+
+        if not prioridade:
+            eprioridade = False
+        else:
+            removido = -heapq.heappop(prioridade)
+
+            if removido != valor:
+                eprioridade = False
+
+    possibilidades = sum([
+        epilha, 
+        efila,
+        eprioridade
+    ])
+
+    if possibilidades == 0:
+        print("impossible")
+    elif possibilidades > 1:
+        print("not sure")
+    elif epilha:
+        print("stack")
+    elif efila:
+        print("queue")
+    else:
+        print("priority queue")
